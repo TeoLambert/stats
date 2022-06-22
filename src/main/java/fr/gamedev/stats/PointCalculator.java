@@ -36,7 +36,6 @@ public class PointCalculator {
     	
         	int result = 0;
         	
-        	result = dataSource;
         	FscSlice slice = getValidSlice(slices, dataSource);
         	double resultPasArrondi = operator.apply(basePoints, slice.getWeight());
         	
