@@ -2,10 +2,11 @@ package fr.gamedev.stats;
 
 import fr.gamedev.stats.fixedSizeCoeficient.FscRule;
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import fr.gamedev.stats.fixedSizeCoeficient.FscRule;
+import java.awt.*;
 
 public class PointCalculatorTest extends TestCase {
 
@@ -54,13 +55,27 @@ public class PointCalculatorTest extends TestCase {
         assertEquals(expect_rst, result);
     }
 
-    public void testRepetitionFscHundredTime(){
+    // CASE B du readme
+    public void testAccumulatedFscFirstTime() {
+        pc = PointCalculator.getInstance();
+        FscRule rule = FscRule.fromString("[Fixed step coefficient plus firstTime bonus rounded up (accumulated points)] FSC[(100)(up)(accumulated_points-*)500-2|1000-1.5|2000-1|5000-0.75|10000-0.5|50000-0.25|i-0.01]");
+        int expected = 200;
+        int result = this.pc.fsc(0, true, (short) 50, rule);
+        Assert.assertEquals("Accumulated FSC case B : ", expected, result);
+    }
+    public void testRepetitionFscHundredTime() {
         pc = PointCalculator.getInstance();
         FscRule rule = FscRule.fromString("[(repetition)] FSC[(5)(down)(repetition-*)10-1|50-0.75|100-0.5|i-0.001]");
+    }
 
-        int expect_rst = 25;
-        int result = pc.fsc(99, false, (short)50, rule);
-        assertEquals(expect_rst, result);
+
+    // Case A du README
+    public void testAccumulatedFscNotFirstTime(){
+        pc = PointCalculator.getInstance();
+        FscRule rule = FscRule.fromString("[Fixed step coefficient plus firstTime bonus rounded up (accumulated points)] FSC[(100)(up)(accumulated_points-*)500-2|1000-1.5|2000-1|5000-0.75|10000-0.5|50000-0.25|i-0.01]");
+        int expected = 38;
+        int result = this.pc.fsc(3518, false, (short) 50, rule);
+        Assert.assertEquals("Accumulated FSC case A : ", expected, result);
     }
 
     public void testRepetitionFscTwoHundredFiftyTime(){
@@ -72,6 +87,6 @@ public class PointCalculatorTest extends TestCase {
         assertEquals(expect_rst, result);
     }
 
-    public void testLinearFsc(){
-    }
+
+
 }
