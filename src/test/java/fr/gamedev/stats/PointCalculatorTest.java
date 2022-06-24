@@ -81,7 +81,6 @@ public class PointCalculatorTest extends TestCase {
     public void testRepetitionFscTwoHundredFiftyTime(){
         pc = PointCalculator.getInstance();
         FscRule rule = FscRule.fromString("[(repetition)] FSC[(5)(down)(repetition-*)10-1|50-0.75|100-0.5|i-0.001]");
-
         int expect_rst = 0;
         int result = pc.fsc(249, false, (short)50, rule);
         assertEquals(expect_rst, result);
