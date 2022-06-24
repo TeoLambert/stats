@@ -13,7 +13,7 @@ public class FscControler {
 	@RequestMapping("/stats/fsc")
 	public int calculPointFsc(@RequestParam() int currentPoint, @RequestParam(defaultValue = "false") boolean isFirstTime, @RequestParam() short basePoints,@RequestParam() String ruleConfig) {
 		PointCalculator pc = PointCalculator.getInstance();
-		FscRule rule
+		FscRule rule;
 		if(ruleConfig.contains("linear")){
 			rule = FscRule.fromString("[linear with first Time bonus, rounded up (accumulated_points)] FSC[(500)(up)(accumulated_points-*)i-1]");
 		}
