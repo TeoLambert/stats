@@ -13,7 +13,7 @@ public class FscController {
     static FscRule rule2 = FscRule.fromString( "[Test2] FSC[(10000)(up)(accumulated_points-*)500-2|1000-1.5|2000-1|5000-0.75|10000-0.5|50000-0.25|i-0.01]");
 
     @RequestMapping("/stats/fsc")
-    public int calculFsc(@RequestParam() int currentPoint, @RequestParam() boolean isFirstTime, @RequestParam() short ftBonus, @RequestParam() String ruleName) throws Exception {
+    public int calculFsc(@RequestParam() int currentPoint, @RequestParam() boolean isFirstTime, @RequestParam() short nbPoints, @RequestParam() String ruleName) throws Exception {
 
         FscRule finalRule;
 
@@ -24,6 +24,6 @@ public class FscController {
         else
             throw new Exception("Rule name doesn't exist");
 
-        return PointCalculator.getInstance().fsc(currentPoint, isFirstTime, ftBonus, finalRule);
+        return PointCalculator.getInstance().fsc(currentPoint, isFirstTime, nbPoints, finalRule);
     }
 }
